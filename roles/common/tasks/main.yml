@@ -1,5 +1,5 @@
 - name: Hostname Name cofing
-  ansible.builtin.shell: set-hostname{{component}}
+  ansible.builtin.shell: set-hostname {{component}}
 
 - name: Prometheus Node exporter
   ansible.builtin.shell: labauto prometheus-node-exporter
