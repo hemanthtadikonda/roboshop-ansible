@@ -1,0 +1,24 @@
+input {
+  beats {
+    port => 5044
+  }
+}
+    
+filter {
+  grok {
+    match => { "message" => "%{IP:client_ip}%{SPACE}%{HTTPDATE:time_stamp}%{SPACE}%{WORD:http_method}%{SPACE}/%{SPACE}%{WORD:http_proto}/%{NUMBER:http_proto_vaersion}%{SPACE}%{NUMBER:http_status}%{SPACE}%{NUMBER:http_response_size_bytes}%{SPACE}%{NUMBER:responce_time}" }
+  }
+}
+    
+output {
+  elasticsearch {
+    hosts => ["https://localhost:9200"]
+    index => "%{[fields][component]}-%{+YYYY.MM.dd}"
+    user => "elastic"
+    password => "*4x*3_GXmsOWO4g17Ha_"
+    ssl_certificate_verification => false
+    ssl => true
+  }
+}
+
+
